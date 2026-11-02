@@ -133,6 +133,8 @@ export default function SettingsPage() {
       messageApi.error(`${fieldPath}: ${t(msgKey, { defaultValue: msgKey })}`);
       return;
     }
+    // HttpUtil already surfaces the server's rejection message; adding another
+    // messageApi.error here would show the same failure twice.
     await saveAll();
   }
 

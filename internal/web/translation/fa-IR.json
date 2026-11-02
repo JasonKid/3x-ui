@@ -96,10 +96,6 @@
     "depleted": "حجم تمام شده",
     "ofTotal": "از {total}",
     "tabLinks": "اشتراک",
-    "tabApps": "اپلیکیشن‌ها",
-    "tabConfigs": "کانفیگ‌ها",
-    "scanTitle": "اسکن با گوشی",
-    "scanHint": "این کد را در اپلیکیشن VPN اسکن کنید تا اشتراک بدون کپی‌کردن لینک اضافه شود.",
     "updateInterval": "به‌روزرسانی خودکار هر {hours} ساعت",
     "support": "پشتیبانی",
     "qrTitle": "اسکن. افزودن. اتصال.",
@@ -124,7 +120,8 @@
     "openMenu": "باز کردن منو",
     "pinSidebar": "ثابت کردن نوار کناری",
     "unpinSidebar": "برداشتن تثبیت نوار کناری",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1340,10 +1337,6 @@
       "subIncyEnableRoutingDesc": "تزریق پروفایل مسیریابی به بدنه اشتراک برای کلاینت Incy. (فقط برای Incy)",
       "subIncyRoutingRules": "قوانین مسیریابی",
       "subIncyRoutingRulesDesc": "یک پیوند آماده incy:// یا یک نشانی دائمی HTTPS برای JSON وارد کنید. Incy یک نمایه autorouting می‌سازد و آن را خودکار به‌روزرسانی می‌کند. (فقط برای Incy)",
-      "subClashEnableRouting": "فعال‌سازی مسیریابی",
-      "subClashEnableRoutingDesc": "قوانین مسیریابی سراسری Clash/Mihomo را در اشتراک‌های YAML تولیدشده وارد کن.",
-      "subClashRoutingRules": "قوانین مسیریابی سراسری",
-      "subClashRoutingRulesDesc": "قوانین/YAML یا یک نشانی دائمی HTTPS وارد کنید. پنل آن را در پس‌زمینه به‌روزرسانی می‌کند، فقط گروه‌ها، ارائه‌دهندگان قانون و قوانین را وارد می‌کند و گره‌های VPN ساخته‌شده و آخرین مقدار معتبر را حفظ می‌کند.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "آدرس آی‌پی",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "ترتیب گره‌های اشتراک",
       "subHostSortInbound": "ترتیب ورودی‌ها (پیش‌فرض)",
       "subHostSortHosts": "ترتیب میزبان‌ها",
-      "subHostSortModeDesc": "ترتیب میزبان‌ها در صفحهٔ میزبان‌ها، میان همهٔ ورودی‌ها اعمال می‌شود. این تنظیم ترتیب خروجی سرور را تعیین می‌کند؛ برنامهٔ کلاینت ممکن است ترتیب دیگری اعمال کند."
+      "subHostSortModeDesc": "ترتیب میزبان‌ها در صفحهٔ میزبان‌ها، میان همهٔ ورودی‌ها اعمال می‌شود. این تنظیم ترتیب خروجی سرور را تعیین می‌کند؛ برنامهٔ کلاینت ممکن است ترتیب دیگری اعمال کند.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "save": "ذخیره",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "یک عدد بین 0 تا 65535 وارد کنید"
       },
       "dragToReorder": "برای تغییر ترتیب {name} بکشید"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

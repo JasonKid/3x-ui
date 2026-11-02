@@ -77,6 +77,7 @@ export interface AllSetting {
   subClashPath: string;
   subClashRemoteDNS: boolean;
   subClashRules: string;
+  subClashTemplate: string;
   subClashURI: string;
   subClashUserAgentRegex: string;
   subDomain: string;
@@ -160,6 +161,7 @@ export interface AllSetting {
   subProfileMode: string;
   subProfileUrl: string;
   subRoutingRules: string;
+  subShadowrocketTemplate: string;
   subShowIdentityOnAllLinks: boolean;
   subSupportUrl: string;
   subThemeDir: string;
@@ -268,6 +270,7 @@ export interface AllSettingView {
   subClashPath: string;
   subClashRemoteDNS: boolean;
   subClashRules: string;
+  subClashTemplate: string;
   subClashURI: string;
   subClashUserAgentRegex: string;
   subDomain: string;
@@ -351,6 +354,7 @@ export interface AllSettingView {
   subProfileMode: string;
   subProfileUrl: string;
   subRoutingRules: string;
+  subShadowrocketTemplate: string;
   subShowIdentityOnAllLinks: boolean;
   subSupportUrl: string;
   subThemeDir: string;

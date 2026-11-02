@@ -401,6 +401,11 @@ func (a *SUBController) configuredSubscriptionPathOwner(candidate string) string
 // browser viewing the HTML info page gets clean, name-only remarks (usage is
 // shown in the page summary).
 func (a *SUBController) maybeServeSubPage(c *gin.Context) bool {
+	if strings.EqualFold(c.Query("view"), "raw") ||
+		strings.EqualFold(c.Query("flag"), "shadowrocket") ||
+		strings.EqualFold(c.Query("flag"), "clash") {
+		return false
+	}
 	accept := c.GetHeader("Accept")
 	wantsHTML := strings.Contains(strings.ToLower(accept), "text/html") || c.Query("html") == "1" || strings.EqualFold(c.Query("view"), "html")
 	if !wantsHTML {
@@ -485,6 +490,17 @@ func (a *SUBController) subs(c *gin.Context) {
 		return
 	}
 	if !a.enforceHwid(c) {
+		return
+	}
+	rawView := strings.EqualFold(c.Query("view"), "raw")
+	if strings.EqualFold(c.Query("flag"), "shadowrocket") && a.serveShadowrocketBody(c, rawView) {
+		a.recordSubscriptionFetch(c)
+		logSubscriptionRoute(userAgent, "shadowrocket")
+		return
+	}
+	if strings.EqualFold(c.Query("flag"), "clash") && a.serveClashBody(c, rawView, false) {
+		a.recordSubscriptionFetch(c)
+		logSubscriptionRoute(userAgent, "clash")
 		return
 	}
 	if shouldAutoServeClash(a.subClashAutoDetect, a.clashEnabled, false, userAgent, a.clashUserAgent) && a.serveClashBody(c, false, false) {
@@ -933,6 +949,35 @@ func (a *SUBController) serveClashBody(c *gin.Context, rawDownload bool, legacy 
 		c.Writer.Header().Set("Content-Disposition", fmt.Sprintf(`attachment; filename*=UTF-8''%s`, url.PathEscape(metadata.Title)))
 	}
 	c.Data(200, "application/yaml; charset=utf-8", []byte(clashSub))
+	return true
+}
+
+func (a *SUBController) serveShadowrocketBody(c *gin.Context, rawDownload bool) bool {
+	subId := c.Param("subid")
+	scheme, host, hostWithPort, _ := a.subService.ResolveRequest(c)
+	updateURL := fmt.Sprintf("%s://%s%s?flag=shadowrocket", scheme, hostWithPort, c.Request.URL.EscapedPath())
+	body, header, err := NewSubShadowrocketService(a.subService).GetShadowrocket(subId, host, updateURL)
+	if err != nil {
+		writeSubError(c, err)
+		return true
+	}
+	if len(body) == 0 && header == "" {
+		return false
+	}
+	var subReq *SubService
+	metadata := a.metadataForSubRequest(func() *SubService {
+		if subReq == nil {
+			subReq = a.subService.ForRequest(host)
+		}
+		return subReq
+	}, subId, builtinProfileURL(c, scheme, hostWithPort))
+	a.ApplyCommonHeaders(c, header, a.updateInterval, metadata.Title, metadata.SupportURL, metadata.ProfileURL, metadata.Announce, a.subEnableRouting, a.subRoutingRules, a.subHideSettings)
+	if rawDownload {
+		c.Writer.Header().Set("Content-Disposition", `attachment; filename="subscription.conf"`)
+	} else if metadata.Title != "" {
+		c.Writer.Header().Set("Content-Disposition", fmt.Sprintf(`attachment; filename*=UTF-8''%s.conf`, url.PathEscape(metadata.Title)))
+	}
+	c.Data(http.StatusOK, "text/plain; charset=utf-8", []byte(body))
 	return true
 }
 

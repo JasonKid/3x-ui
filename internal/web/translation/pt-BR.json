@@ -96,10 +96,6 @@
     "depleted": "Dados esgotados",
     "ofTotal": "de {total}",
     "tabLinks": "Assinatura",
-    "tabApps": "Aplicativos",
-    "tabConfigs": "Configurações",
-    "scanTitle": "Escaneie com o celular",
-    "scanHint": "Escaneie este código no seu aplicativo de VPN para adicionar a assinatura sem copiar o link.",
     "updateInterval": "Atualiza automaticamente a cada {hours} horas",
     "support": "Suporte",
     "qrTitle": "Escaneie. Importe. Conecte.",
@@ -124,7 +120,8 @@
     "openMenu": "Abrir menu",
     "pinSidebar": "Fixar barra lateral",
     "unpinSidebar": "Desafixar barra lateral",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "Injetar um perfil de roteamento no corpo da assinatura para o cliente Incy. (Apenas para Incy)",
       "subIncyRoutingRules": "Regras de roteamento",
       "subIncyRoutingRulesDesc": "Cole um deeplink incy:// pronto ou uma URL HTTPS permanente para JSON. O Incy cria um perfil de autorouting e o atualiza automaticamente. (Apenas para Incy)",
-      "subClashEnableRouting": "Ativar roteamento",
-      "subClashEnableRoutingDesc": "Incluir regras globais de roteamento Clash/Mihomo nas assinaturas YAML geradas.",
-      "subClashRoutingRules": "Regras globais de roteamento",
-      "subClashRoutingRulesDesc": "Cole regras/YAML ou uma URL HTTPS permanente. O painel a atualiza em segundo plano, importa apenas grupos, provedores de regras e regras, e preserva os nós VPN gerados e o último valor válido.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "IP de Escuta",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "Ordem dos nós da assinatura",
       "subHostSortInbound": "Ordem das entradas (padrão)",
       "subHostSortHosts": "Ordem dos hosts",
-      "subHostSortModeDesc": "Segue a ordem da página de hosts entre diferentes entradas. Define a ordem emitida pelo servidor; os aplicativos clientes podem aplicar sua própria ordenação."
+      "subHostSortModeDesc": "Segue a ordem da página de hosts entre diferentes entradas. Define a ordem emitida pelo servidor; os aplicativos clientes podem aplicar sua própria ordenação.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "importRules": "Importar regras",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "Insira um único número entre 0 e 65535"
       },
       "dragToReorder": "Arraste para reordenar {name}"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

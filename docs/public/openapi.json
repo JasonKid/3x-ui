@@ -253,6 +253,9 @@
           "subClashRules": {
             "type": "string"
           },
+          "subClashTemplate": {
+            "type": "string"
+          },
           "subClashURI": {
             "type": "string"
           },
@@ -507,6 +510,9 @@
           "subRoutingRules": {
             "type": "string"
           },
+          "subShadowrocketTemplate": {
+            "type": "string"
+          },
           "subShowIdentityOnAllLinks": {
             "type": "boolean"
           },
@@ -677,6 +683,7 @@
           "subClashPath",
           "subClashRemoteDNS",
           "subClashRules",
+          "subClashTemplate",
           "subClashURI",
           "subClashUserAgentRegex",
           "subDomain",
@@ -760,6 +767,7 @@
           "subProfileMode",
           "subProfileUrl",
           "subRoutingRules",
+          "subShadowrocketTemplate",
           "subShowIdentityOnAllLinks",
           "subSupportUrl",
           "subThemeDir",
@@ -1044,6 +1052,9 @@
           "subClashRules": {
             "type": "string"
           },
+          "subClashTemplate": {
+            "type": "string"
+          },
           "subClashURI": {
             "type": "string"
           },
@@ -1298,6 +1309,9 @@
           "subRoutingRules": {
             "type": "string"
           },
+          "subShadowrocketTemplate": {
+            "type": "string"
+          },
           "subShowIdentityOnAllLinks": {
             "type": "boolean"
           },
@@ -1476,6 +1490,7 @@
           "subClashPath",
           "subClashRemoteDNS",
           "subClashRules",
+          "subClashTemplate",
           "subClashURI",
           "subClashUserAgentRegex",
           "subDomain",
@@ -1559,6 +1574,7 @@
           "subProfileMode",
           "subProfileUrl",
           "subRoutingRules",
+          "subShadowrocketTemplate",
           "subShowIdentityOnAllLinks",
           "subSupportUrl",
           "subThemeDir",
@@ -4985,6 +5001,10 @@
     {
       "name": "WebSocket",
       "description": "Real-time status updates via WebSocket. Connect once at <code>ws://<panel>/ws</code> to receive a stream of JSON messages without polling. Requires an authenticated session cookie (Bearer token auth is not supported). Each message has a <code>type</code> field that identifies the payload shape."
+    },
+    {
+      "name": "Routing Rules",
+      "description": "Global routing rules shared by every subscription output. Manual rules are evaluated first in their sort order, followed by enabled remote rule sources; duplicates are dropped and rendered into the Clash and Shadowrocket subscription templates."
     }
   ],
   "paths": {
@@ -16864,6 +16884,753 @@
             }
           }
         ]
+      }
+    },
+    "/panel/api/rules/list": {
+      "get": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "List manual routing rules in evaluation order.",
+        "operationId": "get_panel_api_rules_list",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": []
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/summary": {
+      "get": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Return manual and external rule totals and per-policy distribution.",
+        "operationId": "get_panel_api_rules_summary",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": {
+                    "manualCount": 0,
+                    "externalCount": 0,
+                    "totalCount": 0,
+                    "policyCounts": {
+                      "PROXY": 0,
+                      "DIRECT": 0,
+                      "REJECT": 0
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/add": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Prepend a manual routing rule.",
+        "operationId": "post_panel_api_rules_add",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "Rule type."
+                  },
+                  "value": {
+                    "type": "string",
+                    "description": "Domain, CIDR or keyword to match."
+                  },
+                  "policy": {
+                    "type": "string",
+                    "description": "PROXY, DIRECT or REJECT."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "Optional note."
+                  },
+                  "enabled": {
+                    "type": "boolean",
+                    "description": "Whether the rule is active."
+                  }
+                },
+                "required": [
+                  "type",
+                  "value",
+                  "policy"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": {
+                    "id": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/update": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Update one manual routing rule by id.",
+        "operationId": "post_panel_api_rules_update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Rule id."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/delete": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Delete one manual routing rule by id.",
+        "operationId": "post_panel_api_rules_delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Rule id."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/reorder": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Rewrite manual rule evaluation order from an explicit id list.",
+        "operationId": "post_panel_api_rules_reorder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Rule ids in evaluation order."
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/sources": {
+      "get": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "List remote rule sources in evaluation order.",
+        "operationId": "get_panel_api_rules_sources",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": []
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/analyze": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Fetch and inspect a remote rule source before adding or updating it.",
+        "operationId": "post_panel_api_rules_source_analyze",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "HTTP(S) URL of the rule list."
+                  }
+                },
+                "required": [
+                  "url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": {
+                    "format": "RULE_LIST_WITHOUT_POLICY",
+                    "hasPolicy": false,
+                    "missingPolicyCount": 10,
+                    "validCount": 10,
+                    "invalidCount": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/add": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Add a remote rule source and immediately synchronize its rules.",
+        "operationId": "post_panel_api_rules_source_add",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "Display name."
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "HTTP(S) URL of the rule list."
+                  },
+                  "defaultPolicy": {
+                    "type": "string",
+                    "description": "Fallback policy for policy-less rules."
+                  },
+                  "interval": {
+                    "type": "string",
+                    "description": "ONE_HOUR, SIX_HOURS, TWELVE_HOURS, DAILY or WEEKLY."
+                  }
+                },
+                "required": [
+                  "name",
+                  "url"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": {
+                    "id": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/update": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Update a remote rule source and re-synchronize if URL or default policy changed.",
+        "operationId": "post_panel_api_rules_source_update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Source id."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/delete": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Delete a remote rule source and all its parsed entries.",
+        "operationId": "post_panel_api_rules_source_delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Source id."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/reorder": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Rewrite remote rule source evaluation order from an explicit id list.",
+        "operationId": "post_panel_api_rules_source_reorder",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    },
+                    "description": "Source ids in evaluation order."
+                  }
+                },
+                "required": [
+                  "ids"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/sync": {
+      "post": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Immediately fetch and re-parse one remote rule source.",
+        "operationId": "post_panel_api_rules_source_sync",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Source id."
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/panel/api/rules/source/entries": {
+      "get": {
+        "tags": [
+          "Routing Rules"
+        ],
+        "summary": "Page the parsed rules belonging to one remote source.",
+        "operationId": "get_panel_api_rules_source_entries",
+        "parameters": [
+          {
+            "name": "sourceId",
+            "in": "query",
+            "required": true,
+            "description": "Source id.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Rows to skip.",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Page size (max 500).",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "msg": {
+                      "type": "string"
+                    },
+                    "obj": {}
+                  }
+                },
+                "example": {
+                  "success": true,
+                  "obj": {
+                    "entries": [],
+                    "total": 0
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

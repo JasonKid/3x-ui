@@ -96,10 +96,6 @@
     "depleted": "نفدت البيانات",
     "ofTotal": "من {total}",
     "tabLinks": "الاشتراك",
-    "tabApps": "التطبيقات",
-    "tabConfigs": "الكونفيجات",
-    "scanTitle": "امسح بهاتفك",
-    "scanHint": "امسح هذا الرمز في تطبيق VPN لإضافة الاشتراك دون نسخ الرابط.",
     "updateInterval": "تحديث تلقائي كل {hours} ساعة",
     "support": "الدعم",
     "qrTitle": "امسح. استورد. اتصل.",
@@ -124,7 +120,8 @@
     "openMenu": "فتح القائمة",
     "pinSidebar": "تثبيت الشريط الجانبي",
     "unpinSidebar": "إلغاء تثبيت الشريط الجانبي",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "حقن ملف تعريف التوجيه في محتوى الاشتراك لعميل Incy. (فقط لـ Incy)",
       "subIncyRoutingRules": "قواعد التوجيه",
       "subIncyRoutingRulesDesc": "ألصق رابط incy:// جاهزًا أو عنوان HTTPS دائمًا لملف JSON. ينشئ Incy ملف autorouting ويحدّثه تلقائيًا. (فقط لـ Incy)",
-      "subClashEnableRouting": "تفعيل التوجيه",
-      "subClashEnableRoutingDesc": "تضمين قواعد توجيه Clash/Mihomo العامة في اشتراكات YAML المُنشأة.",
-      "subClashRoutingRules": "قواعد التوجيه العامة",
-      "subClashRoutingRulesDesc": "ألصق قواعد/YAML أو عنوان HTTPS دائمًا. تحدّثه اللوحة في الخلفية، وتستورد المجموعات وموفري القواعد والقواعد فقط، وتحافظ على عقد VPN المُنشأة وآخر قيمة صالحة.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "IP الاستماع",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "ترتيب عقد الاشتراك",
       "subHostSortInbound": "ترتيب الاتصالات الواردة (الافتراضي)",
       "subHostSortHosts": "ترتيب المضيفين",
-      "subHostSortModeDesc": "يتبع ترتيب المضيفين صفحة المضيفين عبر جميع الاتصالات الواردة. يحدد هذا ترتيب مخرجات الخادم؛ وقد تطبق تطبيقات العميل ترتيبًا آخر."
+      "subHostSortModeDesc": "يتبع ترتيب المضيفين صفحة المضيفين عبر جميع الاتصالات الواردة. يحدد هذا ترتيب مخرجات الخادم؛ وقد تطبق تطبيقات العميل ترتيبًا آخر.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "save": "احفظ",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "أدخل رقماً واحداً بين 0 و65535"
       },
       "dragToReorder": "اسحب لتغيير ترتيب {name}"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

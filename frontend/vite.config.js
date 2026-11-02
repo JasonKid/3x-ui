@@ -54,7 +54,7 @@ function refreshBasePath() {
 
 function readPanelVersion() {
   try {
-    const versionFile = path.resolve(import.meta.dirname, '..', 'config', 'version');
+    const versionFile = path.resolve(import.meta.dirname, '..', 'internal', 'config', 'version');
     return fs.readFileSync(versionFile, 'utf8').trim();
   } catch (_e) {
     return '';
@@ -286,7 +286,7 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     proxy: {
-      '^/(?:[^/]+/)?(login|logout|getTwoFactorEnable|csrf-token|sponsors|panel|server)(?:/|$)': makeBackendProxy(BACKEND_TARGET),
+      '^/(?:[^/]+/)?(login|logout|getTwoFactorEnable|csrf-token|panel|server)(?:/|$)': makeBackendProxy(BACKEND_TARGET),
       '^/$': makeBackendProxy(BACKEND_TARGET),
       '^/[^/]+/$': makeBackendProxy(BACKEND_TARGET),
       '^/(?:[^/]+/)?ws$': {

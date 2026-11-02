@@ -227,6 +227,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "subClashRules": {
         "type": "string"
       },
+      "subClashTemplate": {
+        "type": "string"
+      },
       "subClashURI": {
         "type": "string"
       },
@@ -481,6 +484,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "subRoutingRules": {
         "type": "string"
       },
+      "subShadowrocketTemplate": {
+        "type": "string"
+      },
       "subShowIdentityOnAllLinks": {
         "type": "boolean"
       },
@@ -651,6 +657,7 @@ export const SCHEMAS: Record<string, unknown> = {
       "subClashPath",
       "subClashRemoteDNS",
       "subClashRules",
+      "subClashTemplate",
       "subClashURI",
       "subClashUserAgentRegex",
       "subDomain",
@@ -734,6 +741,7 @@ export const SCHEMAS: Record<string, unknown> = {
       "subProfileMode",
       "subProfileUrl",
       "subRoutingRules",
+      "subShadowrocketTemplate",
       "subShowIdentityOnAllLinks",
       "subSupportUrl",
       "subThemeDir",
@@ -1018,6 +1026,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "subClashRules": {
         "type": "string"
       },
+      "subClashTemplate": {
+        "type": "string"
+      },
       "subClashURI": {
         "type": "string"
       },
@@ -1272,6 +1283,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "subRoutingRules": {
         "type": "string"
       },
+      "subShadowrocketTemplate": {
+        "type": "string"
+      },
       "subShowIdentityOnAllLinks": {
         "type": "boolean"
       },
@@ -1450,6 +1464,7 @@ export const SCHEMAS: Record<string, unknown> = {
       "subClashPath",
       "subClashRemoteDNS",
       "subClashRules",
+      "subClashTemplate",
       "subClashURI",
       "subClashUserAgentRegex",
       "subDomain",
@@ -1533,6 +1548,7 @@ export const SCHEMAS: Record<string, unknown> = {
       "subProfileMode",
       "subProfileUrl",
       "subRoutingRules",
+      "subShadowrocketTemplate",
       "subShowIdentityOnAllLinks",
       "subSupportUrl",
       "subThemeDir",

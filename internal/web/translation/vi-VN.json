@@ -96,10 +96,6 @@
     "depleted": "Hết dung lượng",
     "ofTotal": "trên {total}",
     "tabLinks": "Gói đăng ký",
-    "tabApps": "Ứng dụng",
-    "tabConfigs": "Cấu hình",
-    "scanTitle": "Quét bằng điện thoại",
-    "scanHint": "Quét mã này trong ứng dụng VPN để thêm gói đăng ký mà không cần sao chép liên kết.",
     "updateInterval": "Tự động cập nhật mỗi {hours} giờ",
     "support": "Hỗ trợ",
     "qrTitle": "Quét. Nhập. Kết nối.",
@@ -124,7 +120,8 @@
     "openMenu": "Mở menu",
     "pinSidebar": "Ghim thanh bên",
     "unpinSidebar": "Bỏ ghim thanh bên",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "Chèn hồ sơ định tuyến vào nội dung đăng ký cho ứng dụng Incy. (Chỉ dành cho Incy)",
       "subIncyRoutingRules": "Quy tắc định tuyến",
       "subIncyRoutingRulesDesc": "Dán deeplink incy:// có sẵn hoặc URL HTTPS cố định tới JSON. Incy tạo hồ sơ autorouting và tự động cập nhật. (Chỉ dành cho Incy)",
-      "subClashEnableRouting": "Bật định tuyến",
-      "subClashEnableRoutingDesc": "Bao gồm quy tắc định tuyến Clash/Mihomo toàn cầu trong các đăng ký YAML được tạo.",
-      "subClashRoutingRules": "Quy tắc định tuyến toàn cầu",
-      "subClashRoutingRulesDesc": "Dán quy tắc/YAML hoặc một URL HTTPS cố định. Bảng điều khiển cập nhật trong nền, chỉ nhập nhóm, nhà cung cấp quy tắc và quy tắc, đồng thời giữ các nút VPN đã tạo và giá trị hợp lệ gần nhất.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "Listening IP",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "Thứ tự nút đăng ký",
       "subHostSortInbound": "Thứ tự kết nối vào (mặc định)",
       "subHostSortHosts": "Thứ tự máy chủ",
-      "subHostSortModeDesc": "Theo thứ tự trên trang Máy chủ giữa các kết nối vào. Thiết lập này quyết định thứ tự do máy chủ xuất ra; ứng dụng khách có thể tự sắp xếp lại."
+      "subHostSortModeDesc": "Theo thứ tự trên trang Máy chủ giữa các kết nối vào. Thiết lập này quyết định thứ tự do máy chủ xuất ra; ứng dụng khách có thể tự sắp xếp lại.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "importRules": "Nhập quy tắc",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "Nhập một số duy nhất từ 0 đến 65535"
       },
       "dragToReorder": "Kéo để sắp xếp lại {name}"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

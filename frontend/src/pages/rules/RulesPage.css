@@ -1,0 +1,76 @@
+.rules-page {
+  --bg-page: #e6e8ec;
+  --bg-card: #ffffff;
+  min-height: 100vh;
+  background: var(--bg-page);
+}
+
+.rules-page.is-dark {
+  --bg-page: #1a1b1f;
+  --bg-card: #23252b;
+}
+
+.rules-page.is-dark.is-ultra {
+  --bg-page: #000;
+  --bg-card: #101013;
+}
+
+.rules-page .ant-layout,
+.rules-page .ant-layout-content,
+.rules-page .content-shell {
+  background: transparent;
+}
+
+.rules-page .content-area {
+  padding: 24px;
+}
+
+.rules-page .summary-card {
+  padding: 16px;
+}
+
+.rules-inline-bar {
+  display: grid;
+  grid-template-columns: 150px minmax(180px, 1fr) 130px minmax(120px, 200px) auto;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.rules-source-bar {
+  display: grid;
+  grid-template-columns: 180px minmax(220px, 1fr) 150px auto;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.rules-policy-dist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rules-policy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
+.rules-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  word-break: break-all;
+}
+
+@media (max-width: 768px) {
+  .rules-page .content-area,
+  .rules-page .summary-card {
+    padding: 8px;
+  }
+
+  .rules-inline-bar,
+  .rules-source-bar {
+    grid-template-columns: 1fr;
+  }
+}

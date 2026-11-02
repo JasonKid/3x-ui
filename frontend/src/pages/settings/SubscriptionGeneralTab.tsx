@@ -4,6 +4,7 @@ import {
   CompassOutlined,
   IdcardOutlined,
   InfoCircleOutlined,
+  MobileOutlined,
   NodeIndexOutlined,
   SafetyCertificateOutlined,
   SettingOutlined,
@@ -452,27 +453,16 @@ export default function SubscriptionGeneralTab({
             <>
               <SettingListItem
                 paddings="small"
-                title={t('pages.settings.subClashEnableRouting')}
-                description={t('pages.settings.subClashEnableRoutingDesc')}
-              >
-                <Switch
-                  checked={allSetting.subClashEnableRouting}
-                  onChange={(v) => updateSetting({ subClashEnableRouting: v })}
-                />
-              </SettingListItem>
-              <SettingListItem
-                paddings="small"
-                title={t('pages.settings.subClashRoutingRules')}
-                badge={remoteSourceBadge(allSetting.subClashRules)}
-                description={t('pages.settings.subClashRoutingRulesDesc')}
+                title={t('pages.settings.subClashTemplate')}
+                description={t('pages.settings.subClashTemplateDesc')}
               >
                 <Input.TextArea
-                  value={allSetting.subClashRules}
-                  rows={8}
+                  value={allSetting.subClashTemplate}
+                  rows={12}
                   placeholder={
-                    'https://.../routing.yaml\n\nor inline rules:\nGEOSITE,category-ir,DIRECT'
+                    'dns:\n  enable: true\n  enhanced-mode: fake-ip\n  nameserver:\n    - 223.5.5.5\n    - 119.29.29.29\nrules:\n  - MATCH,DIRECT'
                   }
-                  onChange={(e) => updateSetting({ subClashRules: e.target.value })}
+                  onChange={(e) => updateSetting({ subClashTemplate: e.target.value })}
                 />
               </SettingListItem>
               <SettingListItem
@@ -486,6 +476,26 @@ export default function SubscriptionGeneralTab({
                 />
               </SettingListItem>
             </>
+          ),
+        },
+        {
+          key: '8',
+          label: catTabLabel(<MobileOutlined aria-hidden />, 'Shadowrocket', isMobile),
+          children: (
+            <SettingListItem
+              paddings="small"
+              title={t('pages.settings.subShadowrocketTemplate')}
+              description={t('pages.settings.subShadowrocketTemplateDesc')}
+            >
+              <Input.TextArea
+                value={allSetting.subShadowrocketTemplate}
+                rows={12}
+                placeholder={
+                  '[General]\nbypass-system = true\nskip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.lan,*.local,*.arpa\ndns-server = 223.5.5.5,119.29.29.29\nipv6 = false'
+                }
+                onChange={(e) => updateSetting({ subShadowrocketTemplate: e.target.value })}
+              />
+            </SettingListItem>
           ),
         },
         {

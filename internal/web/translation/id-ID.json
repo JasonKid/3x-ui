@@ -96,10 +96,6 @@
     "depleted": "Kuota habis",
     "ofTotal": "dari {total}",
     "tabLinks": "Langganan",
-    "tabApps": "Aplikasi",
-    "tabConfigs": "Konfigurasi",
-    "scanTitle": "Pindai dengan ponsel",
-    "scanHint": "Pindai kode ini di aplikasi VPN untuk menambahkan langganan tanpa menyalin tautan.",
     "updateInterval": "Diperbarui otomatis setiap {hours} jam",
     "support": "Dukungan",
     "qrTitle": "Pindai. Impor. Terhubung.",
@@ -124,7 +120,8 @@
     "openMenu": "Buka menu",
     "pinSidebar": "Sematkan bilah sisi",
     "unpinSidebar": "Lepas sematan bilah sisi",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "Menyuntikkan profil perutean ke dalam body langganan untuk klien Incy. (Hanya untuk Incy)",
       "subIncyRoutingRules": "Aturan routing",
       "subIncyRoutingRulesDesc": "Tempel deeplink incy:// siap pakai atau URL HTTPS permanen ke JSON. Incy membuat profil autorouting dan memperbaruinya secara otomatis. (Hanya untuk Incy)",
-      "subClashEnableRouting": "Aktifkan routing",
-      "subClashEnableRoutingDesc": "Sertakan aturan routing global Clash/Mihomo dalam langganan YAML yang dibuat.",
-      "subClashRoutingRules": "Aturan routing global",
-      "subClashRoutingRulesDesc": "Tempel aturan/YAML atau satu URL HTTPS permanen. Panel memperbaruinya di latar belakang, hanya mengimpor grup, penyedia aturan, dan aturan, serta mempertahankan node VPN buatan panel dan nilai valid terakhir.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "IP Pendengar",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "Urutan node langganan",
       "subHostSortInbound": "Urutan inbound (bawaan)",
       "subHostSortHosts": "Urutan host",
-      "subHostSortModeDesc": "Mengikuti urutan di halaman Host untuk semua inbound. Ini menentukan urutan keluaran server; aplikasi klien dapat menerapkan urutan sendiri."
+      "subHostSortModeDesc": "Mengikuti urutan di halaman Host untuk semua inbound. Ini menentukan urutan keluaran server; aplikasi klien dapat menerapkan urutan sendiri.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "save": "Simpan",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "Masukkan satu angka antara 0 dan 65535"
       },
       "dragToReorder": "Seret untuk mengurutkan ulang {name}"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

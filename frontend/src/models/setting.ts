@@ -76,6 +76,8 @@ export class AllSetting {
   subClashEnableRouting = false;
   subClashRules = '';
   subClashRemoteDNS = false;
+  subClashTemplate = '';
+  subShadowrocketTemplate = '';
   subJsonMux = '';
   subJsonRules = '';
   subJsonRoutingRules = '';

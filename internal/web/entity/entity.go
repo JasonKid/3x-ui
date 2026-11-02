@@ -125,6 +125,8 @@ type AllSetting struct {
 	SubClashEnableRouting       bool   `json:"subClashEnableRouting" form:"subClashEnableRouting"`
 	SubClashRules               string `json:"subClashRules" form:"subClashRules"`
 	SubClashRemoteDNS           bool   `json:"subClashRemoteDNS" form:"subClashRemoteDNS"`
+	SubClashTemplate            string `json:"subClashTemplate" form:"subClashTemplate"`
+	SubShadowrocketTemplate     string `json:"subShadowrocketTemplate" form:"subShadowrocketTemplate"`
 	SubJsonMux                  string `json:"subJsonMux" form:"subJsonMux"`
 	SubJsonRules                string `json:"subJsonRules" form:"subJsonRules"`
 	SubJsonRoutingRules         string `json:"subJsonRoutingRules" form:"subJsonRoutingRules"`

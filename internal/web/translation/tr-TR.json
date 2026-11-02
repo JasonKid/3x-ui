@@ -96,10 +96,6 @@
     "depleted": "Kota doldu",
     "ofTotal": "/ {total}",
     "tabLinks": "Abonelik",
-    "tabApps": "Uygulamalar",
-    "tabConfigs": "Yapılandırmalar",
-    "scanTitle": "Telefonunuzla tarayın",
-    "scanHint": "Bağlantıyı kopyalamadan aboneliği eklemek için bu kodu VPN uygulamanızda tarayın.",
     "updateInterval": "Her {hours} saatte bir otomatik güncellenir",
     "support": "Destek",
     "qrTitle": "Tara. İçe aktar. Bağlan.",
@@ -124,7 +120,8 @@
     "openMenu": "Menüyü aç",
     "pinSidebar": "Kenar çubuğunu sabitle",
     "unpinSidebar": "Kenar çubuğu sabitlemesini kaldır",
-    "subFormats": "Abonelik Formatları"
+    "subFormats": "Abonelik Formatları",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "Incy istemcisi için abonelik gövdesine bir yönlendirme profili ekleyin. (Yalnızca Incy için)",
       "subIncyRoutingRules": "Yönlendirme kuralları",
       "subIncyRoutingRulesDesc": "Hazır bir incy:// derin bağlantısı veya JSON için kalıcı bir HTTPS URL'si yapıştırın. Incy bir autorouting profili oluşturur ve otomatik olarak günceller. (Yalnızca Incy için)",
-      "subClashEnableRouting": "Yönlendirmeyi Etkinleştir",
-      "subClashEnableRoutingDesc": "Oluşturulan YAML aboneliklerine genel Clash/Mihomo yönlendirme kurallarını ekler.",
-      "subClashRoutingRules": "Genel Yönlendirme Kuralları",
-      "subClashRoutingRulesDesc": "Kurallar/YAML veya kalıcı bir HTTPS URL'si yapıştırın. Panel bunu arka planda yeniler, yalnızca grupları, kural sağlayıcılarını ve kuralları içe aktarır; oluşturulan VPN düğümlerini ve son geçerli değeri korur.",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "Dinleme IP",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "Abonelik düğümü sıralaması",
       "subHostSortInbound": "Gelen bağlantı sırası (varsayılan)",
       "subHostSortHosts": "Ana bilgisayar sırası",
-      "subHostSortModeDesc": "Farklı gelen bağlantılarda Ana Bilgisayarlar sayfasının sırasını izler. Sunucunun çıktı sırasını belirler; istemci uygulamaları kendi sıralamalarını uygulayabilir."
+      "subHostSortModeDesc": "Farklı gelen bağlantılarda Ana Bilgisayarlar sayfasının sırasını izler. Sunucunun çıktı sırasını belirler; istemci uygulamaları kendi sıralamalarını uygulayabilir.",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "save": "Kaydet",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "0 ile 65535 arasında tek bir sayı girin"
       },
       "dragToReorder": "{name} öğesini yeniden sıralamak için sürükleyin"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {

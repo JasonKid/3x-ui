@@ -14,6 +14,7 @@ import (
 	"strings"
 	"time"
 
+	yaml "github.com/goccy/go-yaml"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
@@ -21,6 +22,7 @@ import (
 	"github.com/mhsanaei/3x-ui/v3/internal/database"
 	"github.com/mhsanaei/3x-ui/v3/internal/database/model"
 	"github.com/mhsanaei/3x-ui/v3/internal/logger"
+	"github.com/mhsanaei/3x-ui/v3/internal/rules"
 	"github.com/mhsanaei/3x-ui/v3/internal/util/common"
 	"github.com/mhsanaei/3x-ui/v3/internal/util/netproxy"
 	"github.com/mhsanaei/3x-ui/v3/internal/util/random"
@@ -188,6 +190,8 @@ var defaultValueMap = map[string]string{
 	"subClashEnableRouting":       "false",
 	"subClashRules":               "",
 	"subClashRemoteDNS":           "false",
+	"subClashTemplate":            "",
+	"subShadowrocketTemplate":     "",
 	"subJsonMux":                  "",
 	"subJsonRules":                "",
 	"subJsonRoutingRules":         "",
@@ -1253,6 +1257,14 @@ func (s *SettingService) GetSubClashRemoteDNS() (bool, error) {
 	return s.getBool("subClashRemoteDNS")
 }
 
+func (s *SettingService) GetSubClashTemplate() (string, error) {
+	return s.getString("subClashTemplate")
+}
+
+func (s *SettingService) GetSubShadowrocketTemplate() (string, error) {
+	return s.getString("subShadowrocketTemplate")
+}
+
 func (s *SettingService) GetSubJsonMux() (string, error) {
 	return s.getString("subJsonMux")
 }
@@ -1692,6 +1704,12 @@ func (s *SettingService) UpdateAllSetting(allSetting *entity.AllSetting, clears 
 	if err := validateSubJsonDnsSetting(allSetting); err != nil {
 		return err
 	}
+	if err := validateSubClashTemplate(allSetting); err != nil {
+		return err
+	}
+	if err := validateSubShadowrocketTemplate(allSetting); err != nil {
+		return err
+	}
 	if err := validateFinalMaskJSONSalamander(allSetting.SubJsonFinalMask); err != nil {
 		return err
 	}
@@ -1886,6 +1904,71 @@ func validateSubJsonDnsSetting(allSetting *entity.AllSetting) error {
 	}
 	allSetting.SubJsonDns = value
 	return nil
+}
+
+// validateSubClashTemplate rejects a subscription template that could never be
+// merged, instead of letting the generator silently fall back to the built-in
+// one. Placeholder-only templates are rendered as text and need no YAML shape.
+func validateSubClashTemplate(allSetting *entity.AllSetting) error {
+	value := strings.TrimSpace(allSetting.SubClashTemplate)
+	allSetting.SubClashTemplate = value
+	if value == "" || rules.HasClashPlaceholders(value) {
+		return nil
+	}
+	var parsed map[string]any
+	if err := yaml.Unmarshal([]byte(value), &parsed); err != nil {
+		return common.NewError("Clash subscription template must be a YAML mapping:", yamlIssue(err))
+	}
+	if len(parsed) == 0 {
+		return common.NewError("Clash subscription template must be a YAML mapping:", "template is empty")
+	}
+	for key := range parsed {
+		switch key {
+		case "proxies", "proxy-groups", "rules":
+			return common.NewError("Clash subscription template must not define", key+" (generated automatically)")
+		}
+	}
+	return nil
+}
+
+// validateSubShadowrocketTemplate checks the section/key shape the generator
+// expects; a wrong line there silently drops the whole template.
+func validateSubShadowrocketTemplate(allSetting *entity.AllSetting) error {
+	value := strings.TrimSpace(allSetting.SubShadowrocketTemplate)
+	allSetting.SubShadowrocketTemplate = value
+	if value == "" || rules.HasShadowrocketPlaceholders(value) {
+		return nil
+	}
+	section := ""
+	for lineNo, rawLine := range strings.Split(strings.ReplaceAll(value, "\r\n", "\n"), "\n") {
+		line := strings.TrimSpace(rawLine)
+		if line == "" || strings.HasPrefix(line, "#") || strings.HasPrefix(line, ";") {
+			continue
+		}
+		if strings.HasPrefix(line, "[") {
+			if !strings.HasSuffix(line, "]") {
+				return common.NewError("Shadowrocket template line", fmt.Sprintf("%d: unclosed section header", lineNo+1))
+			}
+			section = strings.ToLower(strings.TrimSpace(line[1 : len(line)-1]))
+			continue
+		}
+		if !strings.Contains(line, "=") {
+			return common.NewError("Shadowrocket template line", fmt.Sprintf("%d: expected `key = value`", lineNo+1))
+		}
+		if section == "" {
+			return common.NewError("Shadowrocket template line", fmt.Sprintf("%d: %q appears before any [Section]", lineNo+1, line))
+		}
+	}
+	return nil
+}
+
+func yamlIssue(err error) string {
+	message := err.Error()
+	message = strings.ReplaceAll(message, "\n", " ")
+	if len(message) > 240 {
+		message = message[:240]
+	}
+	return strings.TrimSpace(message)
 }
 
 func (s *SettingService) UpdateSecret(key string, value string) error {

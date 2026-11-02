@@ -262,7 +262,23 @@
 .sub-rows {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+}
+
+.sub-row-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  background: var(--ant-color-fill-quaternary);
+  border: 1px solid var(--ant-color-border-secondary);
+  overflow: hidden;
+}
+
+.sub-row-qr-panel {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+  border-top: 1px dashed var(--ant-color-border-secondary);
 }
 
 .sub-row {

@@ -1,4 +1,10 @@
 export const keys = {
+  rules: {
+    root: () => ['rules'] as const,
+    list: () => ['rules', 'list'] as const,
+    sources: () => ['rules', 'sources'] as const,
+    summary: () => ['rules', 'summary'] as const,
+  },
   server: {
     status: () => ['server', 'status'] as const,
     fail2banStatus: () => ['server', 'fail2banStatus'] as const,

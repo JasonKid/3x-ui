@@ -2841,4 +2841,154 @@ export const sections: readonly Section[] = [
       },
     ],
   },
+  {
+    id: 'rules',
+    title: 'Routing Rules',
+    description:
+      'Global routing rules shared by every subscription output. Manual rules are evaluated first in their sort order, followed by enabled remote rule sources; duplicates are dropped and rendered into the Clash and Shadowrocket subscription templates.',
+    endpoints: [
+      {
+        method: 'GET',
+        path: '/panel/api/rules/list',
+        summary: 'List manual routing rules in evaluation order.',
+        response: '{\n  "success": true,\n  "obj": []\n}',
+      },
+      {
+        method: 'GET',
+        path: '/panel/api/rules/summary',
+        summary: 'Return manual and external rule totals and per-policy distribution.',
+        response:
+          '{\n  "success": true,\n  "obj": { "manualCount": 0, "externalCount": 0, "totalCount": 0, "policyCounts": { "PROXY": 0, "DIRECT": 0, "REJECT": 0 } }\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/add',
+        summary: 'Prepend a manual routing rule.',
+        params: [
+          { name: 'type', in: 'body', type: 'string', desc: 'Rule type.' },
+          { name: 'value', in: 'body', type: 'string', desc: 'Domain, CIDR or keyword to match.' },
+          { name: 'policy', in: 'body', type: 'string', desc: 'PROXY, DIRECT or REJECT.' },
+          { name: 'note', in: 'body', type: 'string', desc: 'Optional note.', optional: true },
+          {
+            name: 'enabled',
+            in: 'body',
+            type: 'boolean',
+            desc: 'Whether the rule is active.',
+            optional: true,
+          },
+        ],
+        response: '{\n  "success": true,\n  "obj": { "id": 1 }\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/update',
+        summary: 'Update one manual routing rule by id.',
+        params: [{ name: 'id', in: 'body', type: 'integer', desc: 'Rule id.' }],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/delete',
+        summary: 'Delete one manual routing rule by id.',
+        params: [{ name: 'id', in: 'body', type: 'integer', desc: 'Rule id.' }],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/reorder',
+        summary: 'Rewrite manual rule evaluation order from an explicit id list.',
+        params: [
+          { name: 'ids', in: 'body', type: 'integer[]', desc: 'Rule ids in evaluation order.' },
+        ],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'GET',
+        path: '/panel/api/rules/sources',
+        summary: 'List remote rule sources in evaluation order.',
+        response: '{\n  "success": true,\n  "obj": []\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/analyze',
+        summary: 'Fetch and inspect a remote rule source before adding or updating it.',
+        params: [
+          { name: 'url', in: 'body', type: 'string', desc: 'HTTP(S) URL of the rule list.' },
+        ],
+        response:
+          '{\n  "success": true,\n  "obj": { "format": "RULE_LIST_WITHOUT_POLICY", "hasPolicy": false, "missingPolicyCount": 10, "validCount": 10, "invalidCount": 0 }\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/add',
+        summary: 'Add a remote rule source and immediately synchronize its rules.',
+        params: [
+          { name: 'name', in: 'body', type: 'string', desc: 'Display name.' },
+          { name: 'url', in: 'body', type: 'string', desc: 'HTTP(S) URL of the rule list.' },
+          {
+            name: 'defaultPolicy',
+            in: 'body',
+            type: 'string',
+            desc: 'Fallback policy for policy-less rules.',
+            optional: true,
+          },
+          {
+            name: 'interval',
+            in: 'body',
+            type: 'string',
+            desc: 'ONE_HOUR, SIX_HOURS, TWELVE_HOURS, DAILY or WEEKLY.',
+            optional: true,
+          },
+        ],
+        response: '{\n  "success": true,\n  "obj": { "id": 1 }\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/update',
+        summary: 'Update a remote rule source and re-synchronize if URL or default policy changed.',
+        params: [{ name: 'id', in: 'body', type: 'integer', desc: 'Source id.' }],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/delete',
+        summary: 'Delete a remote rule source and all its parsed entries.',
+        params: [{ name: 'id', in: 'body', type: 'integer', desc: 'Source id.' }],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/reorder',
+        summary: 'Rewrite remote rule source evaluation order from an explicit id list.',
+        params: [
+          { name: 'ids', in: 'body', type: 'integer[]', desc: 'Source ids in evaluation order.' },
+        ],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'POST',
+        path: '/panel/api/rules/source/sync',
+        summary: 'Immediately fetch and re-parse one remote rule source.',
+        params: [{ name: 'id', in: 'body', type: 'integer', desc: 'Source id.' }],
+        response: '{\n  "success": true\n}',
+      },
+      {
+        method: 'GET',
+        path: '/panel/api/rules/source/entries',
+        summary: 'Page the parsed rules belonging to one remote source.',
+        params: [
+          { name: 'sourceId', in: 'query', type: 'integer', desc: 'Source id.' },
+          { name: 'offset', in: 'query', type: 'integer', desc: 'Rows to skip.', optional: true },
+          {
+            name: 'limit',
+            in: 'query',
+            type: 'integer',
+            desc: 'Page size (max 500).',
+            optional: true,
+          },
+        ],
+        response: '{\n  "success": true,\n  "obj": { "entries": [], "total": 0 }\n}',
+      },
+    ],
+  },
 ];

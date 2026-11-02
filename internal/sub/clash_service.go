@@ -15,6 +15,7 @@ import (
 
 	"github.com/mhsanaei/3x-ui/v3/internal/amneziawg"
 	"github.com/mhsanaei/3x-ui/v3/internal/database/model"
+	"github.com/mhsanaei/3x-ui/v3/internal/rules"
 	"github.com/mhsanaei/3x-ui/v3/internal/tuic"
 	wgutil "github.com/mhsanaei/3x-ui/v3/internal/util/wireguard"
 )
@@ -40,19 +41,21 @@ func (s *SubClashService) GetClashLegacy(subId string, host string) (string, str
 	return s.getClash(subId, host, true)
 }
 
-func (s *SubClashService) getClash(subId string, host string, legacy bool) (string, string, error) {
+// collectProxies builds the node list, its names and the quota header shared
+// by every Clash-family output; Shadowrocket renders the same node set.
+func (s *SubClashService) collectProxies(subId string, host string, legacy bool) ([]map[string]any, []string, string, error) {
 	subReq := s.SubService.ForRequest(host)
 	subReq.subscriptionBody = true
 	inbounds, err := subReq.getInboundsBySubId(subId)
 	if err != nil {
-		return "", "", err
+		return nil, nil, "", err
 	}
 	externalLinks, err := subReq.getClientExternalLinksBySubId(subId)
 	if err != nil {
-		return "", "", err
+		return nil, nil, "", err
 	}
 	if len(inbounds) == 0 && len(externalLinks) == 0 {
-		return "", "", nil
+		return nil, nil, "", nil
 	}
 
 	var proxies []map[string]any
@@ -137,12 +140,12 @@ func (s *SubClashService) getClash(subId string, host string, legacy bool) (stri
 	}
 
 	if len(proxies) == 0 && !hasInactiveExternal && !hasBoundClosed {
-		return "", "", nil
+		return nil, nil, "", nil
 	}
 	if legacy {
 		proxies = legacyClashProxies(proxies)
 		if len(proxies) == 0 {
-			return "", "", errNoLegacyClashProxies
+			return nil, nil, "", errNoLegacyClashProxies
 		}
 	}
 
@@ -170,7 +173,7 @@ func (s *SubClashService) getClash(subId string, host string, legacy bool) (stri
 	}
 
 	if len(proxies) == 0 {
-		return "", header, nil
+		return nil, nil, header, nil
 	}
 
 	ensureUniqueProxyNames(proxies)
@@ -185,6 +188,18 @@ func (s *SubClashService) getClash(subId string, host string, legacy bool) (stri
 		}
 	}
 	proxyNames = append(proxyNames, "DIRECT")
+
+	return proxies, proxyNames, header, nil
+}
+
+func (s *SubClashService) getClash(subId string, host string, legacy bool) (string, string, error) {
+	proxies, proxyNames, header, err := s.collectProxies(subId, host, legacy)
+	if err != nil {
+		return "", "", err
+	}
+	if len(proxies) == 0 {
+		return "", header, nil
+	}
 
 	config := map[string]any{
 		"proxies": proxies,
@@ -208,6 +223,18 @@ func (s *SubClashService) getClash(subId string, host string, legacy bool) (stri
 			} else if err := mergeClashRulesYAML(config, resolved); err != nil {
 				return "", "", err
 			}
+		}
+	} else if !legacy {
+		templateText, _ := s.SubService.settingService.GetSubClashTemplate()
+		ruleList := loadRuleOutput()
+		if rules.HasClashPlaceholders(templateText) {
+			return rules.RenderClashPlaceholders(templateText, clashProxyLines(proxies), proxyNames, ruleList), header, nil
+		}
+		if strings.TrimSpace(templateText) != "" || len(ruleList) > 0 {
+			if strings.TrimSpace(templateText) == "" {
+				templateText = rules.DefaultClashTemplate
+			}
+			rules.ApplyClashTemplateAndRules(config, templateText, ruleList)
 		}
 	}
 

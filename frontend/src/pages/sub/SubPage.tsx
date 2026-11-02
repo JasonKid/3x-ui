@@ -2,36 +2,26 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Card, ConfigProvider, Layout, Tabs, message } from 'antd';
 import type { TabsProps } from 'antd';
-import {
-  AppstoreOutlined,
-  ClockCircleOutlined,
-  CustomerServiceOutlined,
-  LinkOutlined,
-  UnorderedListOutlined,
-} from '@ant-design/icons';
+import { ClockCircleOutlined, CustomerServiceOutlined, LinkOutlined } from '@ant-design/icons';
 
 import { ClipboardManager, LanguageManager } from '@/utils';
 import { setMessageInstance } from '@/utils/messageBus';
 import { useTheme } from '@/hooks/useTheme';
-import SubAppsTab from './SubAppsTab';
-import SubConfigsTab from './SubConfigsTab';
 import SubHeader from './SubHeader';
 import SubHero from './SubHero';
 import SubLinksTab from './SubLinksTab';
-import { buildSubApps, daysUntil, detectPlatform, resolveSubStatus } from './subPageModel';
+import { daysUntil, resolveSubStatus } from './subPageModel';
 import './SubPage.css';
 
 const subData = window.__SUB_PAGE_DATA__ || {};
 
 const sId = subData.sId || '';
 const subUrl = subData.subUrl || '';
-const subJsonUrl = subData.subJsonUrl || '';
 const subClashUrl = subData.subClashUrl || '';
 const subTitle = subData.subTitle || '';
 const subSupportUrl = subData.subSupportUrl || '';
 const updateHours = Number(subData.subUpdates || 0);
 const announce = subData.announce || '';
-const links: string[] = Array.isArray(subData.links) ? subData.links : [];
 const linkEmails: string[] = Array.isArray(subData.emails) ? subData.emails : [];
 const totalByte = Number(subData.totalByte || 0);
 const usedByte =
@@ -56,8 +46,6 @@ const heroData = {
   datepicker: subData.datepicker || 'gregorian',
 };
 
-const apps = buildSubApps({ subUrl, sId, subTitle });
-const initialPlatform = detectPlatform(navigator.userAgent);
 const RTL_LANGUAGES = new Set(['fa-IR', 'ar-EG']);
 
 export default function SubPage() {
@@ -83,50 +71,18 @@ export default function SubPage() {
     [t, messageApi],
   );
 
-  const open = useCallback((url: string) => {
-    if (url) window.open(url, '_blank');
-  }, []);
-
   const tabs = useMemo(() => {
     const items: NonNullable<TabsProps['items']> = [];
-    if (subUrl || subJsonUrl || subClashUrl) {
+    if (subUrl || subClashUrl) {
       items.push({
         key: 'subscription',
         icon: <LinkOutlined aria-hidden />,
         label: t('subscription.tabLinks'),
-        children: (
-          <SubLinksTab
-            subUrl={subUrl}
-            subJsonUrl={subJsonUrl}
-            subClashUrl={subClashUrl}
-            onCopy={copy}
-          />
-        ),
-      });
-    }
-    if (subUrl) {
-      items.push({
-        key: 'apps',
-        icon: <AppstoreOutlined aria-hidden />,
-        label: t('subscription.tabApps'),
-        children: <SubAppsTab apps={apps} initialPlatform={initialPlatform} onOpen={open} />,
-      });
-    }
-    if (links.length > 0) {
-      items.push({
-        key: 'configs',
-        icon: <UnorderedListOutlined aria-hidden />,
-        label: (
-          <>
-            {t('subscription.tabConfigs')}
-            <span className="sub-tab-count">{links.length}</span>
-          </>
-        ),
-        children: <SubConfigsTab links={links} onCopy={copy} />,
+        children: <SubLinksTab subUrl={subUrl} subClashUrl={subClashUrl} onCopy={copy} />,
       });
     }
     return items;
-  }, [t, copy, open]);
+  }, [t, copy]);
 
   const direction = RTL_LANGUAGES.has(lang) ? 'rtl' : 'ltr';
   const pageClass = ['subscription-page', isDark && 'is-dark', isUltra && 'is-ultra']

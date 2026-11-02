@@ -96,10 +96,6 @@
     "depleted": "流量已用完",
     "ofTotal": "共 {total}",
     "tabLinks": "订阅",
-    "tabApps": "应用",
-    "tabConfigs": "配置",
-    "scanTitle": "用手机扫码",
-    "scanHint": "在 VPN 应用中扫描此二维码，无需复制链接即可添加订阅。",
     "updateInterval": "每 {hours} 小时自动更新",
     "support": "支持",
     "qrTitle": "扫码。导入。连接。",
@@ -124,7 +120,8 @@
     "openMenu": "打开菜单",
     "pinSidebar": "固定侧边栏",
     "unpinSidebar": "取消固定侧边栏",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "规则管理"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "为 Incy 客户端将路由配置注入订阅内容中。（仅限 Incy）",
       "subIncyRoutingRules": "路由规则",
       "subIncyRoutingRulesDesc": "粘贴现成的 incy:// 深层链接或指向 JSON 的固定 HTTPS URL。Incy 会创建 autorouting 配置并自动更新。（仅限 Incy）",
-      "subClashEnableRouting": "启用路由",
-      "subClashEnableRoutingDesc": "在生成的 YAML 订阅中包含 Clash/Mihomo 全局路由规则。",
-      "subClashRoutingRules": "全局路由规则",
-      "subClashRoutingRulesDesc": "粘贴规则/YAML 或一个固定 HTTPS URL。面板会在后台更新，仅导入代理组、规则提供者和规则，并保留面板生成的 VPN 节点及最后一个有效值。",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "监听 IP",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "订阅节点排序",
       "subHostSortInbound": "入站顺序（默认）",
       "subHostSortHosts": "主机顺序",
-      "subHostSortModeDesc": "跨入站使用主机页面中的排序。此设置决定服务器输出顺序；客户端应用仍可能自行排序。"
+      "subHostSortModeDesc": "跨入站使用主机页面中的排序。此设置决定服务器输出顺序；客户端应用仍可能自行排序。",
+      "subClashTemplate": "自定义订阅模板",
+      "subClashTemplateDesc": "Clash/Mihomo 订阅根据此 YAML 模板加上生成的分流规则配置产生。留空则使用内置默认模板。",
+      "subShadowrocketTemplate": "自定义订阅模板",
+      "subShadowrocketTemplateDesc": "Shadowrocket 订阅根据此模板加上生成的分流规则配置产生。留空则使用内置默认模板。"
     },
     "xray": {
       "importRules": "导入规则",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "请输入 0 到 65535 之间的单个数字"
       },
       "dragToReorder": "拖动以重新排列 {name}"
+    },
+    "rules": {
+      "tabManual": "规则",
+      "tabSources": "规则源",
+      "manualCount": "规则数",
+      "externalCount": "外部规则数",
+      "policyDistribution": "策略分布",
+      "add": "添加",
+      "addRule": "添加规则",
+      "editRule": "编辑规则",
+      "addSource": "添加规则源",
+      "editSource": "编辑规则源",
+      "type": "类型",
+      "value": "规则",
+      "policy": "策略",
+      "note": "备注",
+      "enabled": "启用",
+      "actions": "操作",
+      "name": "规则源名称",
+      "url": "链接",
+      "urlInvalid": "请输入有效的 http(s) 链接",
+      "interval": "更新频率",
+      "intervalOneHour": "每 1 小时",
+      "intervalSixHours": "每 6 小时",
+      "intervalTwelveHours": "每 12 小时",
+      "intervalDaily": "每天",
+      "intervalWeekly": "每周",
+      "ruleCount": "规则数",
+      "status": "状态",
+      "statusSuccess": "已同步",
+      "statusFailed": "失败",
+      "statusNever": "未同步",
+      "deleteConfirm": "确定删除该条目？",
+      "synced": "规则源已同步",
+      "ruleAdded": "规则已添加",
+      "sourceAdded": "规则源已添加",
+      "chooseDefaultPolicy": "选择默认策略",
+      "missingPolicyHint": "检测到 {count} 条规则没有 PROXY / DIRECT / REJECT 策略，请选择这些规则导入后使用的策略。已有策略的规则会保持不变。",
+      "required": "此项必填"
     }
   },
   "tgbot": {

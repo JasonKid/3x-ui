@@ -96,10 +96,6 @@
     "depleted": "データ上限到達",
     "ofTotal": "/ {total}",
     "tabLinks": "サブスクリプション",
-    "tabApps": "アプリ",
-    "tabConfigs": "設定",
-    "scanTitle": "スマートフォンでスキャン",
-    "scanHint": "VPN アプリでこのコードをスキャンすると、リンクをコピーせずにサブスクリプションを追加できます。",
     "updateInterval": "{hours} 時間ごとに自動更新",
     "support": "サポート",
     "qrTitle": "スキャン。インポート。接続。",
@@ -124,7 +120,8 @@
     "openMenu": "メニューを開く",
     "pinSidebar": "サイドバーを固定",
     "unpinSidebar": "サイドバーの固定を解除",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "rules": "Rules"
   },
   "pages": {
     "login": {
@@ -1336,10 +1333,6 @@
       "subIncyEnableRoutingDesc": "Incyクライアント用に、サブスクリプション本文へルーティングプロファイルを挿入します。(Incyのみ)",
       "subIncyRoutingRules": "ルーティングルール",
       "subIncyRoutingRulesDesc": "完成した incy:// ディープリンク、または JSON への永続的な HTTPS URL を入力します。Incy は autorouting プロファイルを作成し、自動更新します。(Incyのみ)",
-      "subClashEnableRouting": "ルーティングを有効化",
-      "subClashEnableRoutingDesc": "生成されたYAMLサブスクリプションにClash/Mihomoのグローバルルーティングルールを含めます。",
-      "subClashRoutingRules": "グローバルルーティングルール",
-      "subClashRoutingRulesDesc": "ルール/YAML、または永続的な HTTPS URL を入力します。パネルはバックグラウンドで更新し、グループ・ルールプロバイダー・ルールのみを取り込み、生成済み VPN ノードと最後の有効値を保持します。",
       "subClashRemoteDNS": "Use DNS from remote rules",
       "subClashRemoteDNSDesc": "When the global routing rules field is a URL, also take its dns and sniffer sections. Enable only for a template you trust.",
       "subListen": "監視IP",
@@ -1838,7 +1831,11 @@
       "subHostSortMode": "サブスクリプションのノード順序",
       "subHostSortInbound": "インバウンド順（既定）",
       "subHostSortHosts": "ホスト順",
-      "subHostSortModeDesc": "異なるインバウンド間でもホストページの順序に従います。サーバーが出力する順序を指定しますが、クライアントアプリが独自に並べ替える場合があります。"
+      "subHostSortModeDesc": "異なるインバウンド間でもホストページの順序に従います。サーバーが出力する順序を指定しますが、クライアントアプリが独自に並べ替える場合があります。",
+      "subClashTemplate": "Custom subscription template",
+      "subClashTemplateDesc": "Clash/Mihomo subscription is generated from this YAML template plus the routing rules. Leave empty to use the built-in template.",
+      "subShadowrocketTemplate": "Custom subscription template",
+      "subShadowrocketTemplateDesc": "Shadowrocket subscription is generated from this template plus the routing rules. Leave empty to use the built-in template."
     },
     "xray": {
       "importRules": "ルールをインポート",
@@ -2492,6 +2489,45 @@
         "badVlessRoute": "0〜65535 の単一の数値を入力してください"
       },
       "dragToReorder": "ドラッグして {name} を並べ替え"
+    },
+    "rules": {
+      "tabManual": "Manual rules",
+      "tabSources": "Rule sources",
+      "manualCount": "Manual rules",
+      "externalCount": "External rules",
+      "policyDistribution": "Policy distribution",
+      "add": "Add",
+      "addRule": "Add rule",
+      "editRule": "Edit rule",
+      "addSource": "Add source",
+      "editSource": "Edit source",
+      "type": "Type",
+      "value": "Rule",
+      "policy": "Policy",
+      "note": "Note",
+      "enabled": "Enabled",
+      "actions": "Actions",
+      "name": "Source name",
+      "url": "URL",
+      "urlInvalid": "Enter a valid http(s) URL",
+      "interval": "Sync interval",
+      "intervalOneHour": "Every 1 hour",
+      "intervalSixHours": "Every 6 hours",
+      "intervalTwelveHours": "Every 12 hours",
+      "intervalDaily": "Daily",
+      "intervalWeekly": "Weekly",
+      "ruleCount": "Rules",
+      "status": "Status",
+      "statusSuccess": "Synced",
+      "statusFailed": "Failed",
+      "statusNever": "Never",
+      "deleteConfirm": "Delete this entry?",
+      "synced": "Source synced",
+      "ruleAdded": "Rule added",
+      "sourceAdded": "Source added",
+      "chooseDefaultPolicy": "Choose default policy",
+      "missingPolicyHint": "Detected {count} rules without a policy. Choose the default policy to apply to them.",
+      "required": "This field is required"
     }
   },
   "tgbot": {
