@@ -61,6 +61,9 @@ func migrationModels() []any {
 		&model.OutboundSubscription{},
 		&model.SubBalancer{},
 		&model.TuicTrafficReceipt{},
+		&model.Rule{},
+		&model.RuleSource{},
+		&model.RuleSourceEntry{},
 	}
 }
 
