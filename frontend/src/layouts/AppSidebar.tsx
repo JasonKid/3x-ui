@@ -188,17 +188,31 @@ export default function AppSidebar() {
   const currentTheme: 'light' | 'dark' = isDark ? 'dark' : 'light';
   const panelVersion = window.X_UI_CUR_VER || '';
 
-  const tabs = useMemo<{ key: string; icon: ComponentType; title: string }[]>(
-    () => [
-      ...PANEL_ROUTES.map((route) => ({
-        key: route.path,
-        icon: route.icon,
-        title: t(route.titleKey),
-      })),
-      { key: LOGOUT_KEY, icon: LogoutOutlined, title: t('logout') },
-    ],
-    [t],
-  );
+  const tabs = useMemo<{ key: string; icon: ComponentType; title: string }[]>(() => {
+    const routes = PANEL_ROUTES.map((route) => ({
+      key: route.path,
+      icon: route.icon,
+      title: t(route.titleKey),
+    }));
+    // Subscription pages stay one click away instead of nesting under settings.
+    const promoted: typeof routes = [
+      {
+        key: '/settings#subscription',
+        icon: CloudServerOutlined,
+        title: t('pages.settings.subSettings'),
+      },
+    ];
+    if (showSubFormats) {
+      promoted.push({
+        key: '/settings#subscription-formats',
+        icon: CodeOutlined,
+        title: t('menu.subFormats'),
+      });
+    }
+    const rulesIndex = routes.findIndex((tab) => tab.key === '/rules');
+    routes.splice(rulesIndex + 1, 0, ...promoted);
+    return [...routes, { key: LOGOUT_KEY, icon: LogoutOutlined, title: t('logout') }];
+  }, [t, showSubFormats]);
 
   const navItems = useMemo(() => tabs.filter((tab) => tab.key !== LOGOUT_KEY), [tabs]);
   const utilItems = useMemo(() => tabs.filter((tab) => tab.key === LOGOUT_KEY), [tabs]);
@@ -230,19 +244,7 @@ export default function AppSidebar() {
         icon: <DiscordOutlined aria-hidden />,
         label: t('pages.settings.discordSettings'),
       },
-      {
-        key: '/settings#subscription',
-        icon: <CloudServerOutlined aria-hidden />,
-        label: t('pages.settings.subSettings'),
-      },
     ];
-    if (showSubFormats) {
-      children.push({
-        key: '/settings#subscription-formats',
-        icon: <CodeOutlined aria-hidden />,
-        label: t('menu.subFormats'),
-      });
-    }
     if (showSubBalancers) {
       children.push({
         key: '/settings#subscription-balancers',
@@ -251,7 +253,7 @@ export default function AppSidebar() {
       });
     }
     return children;
-  }, [t, showSubFormats, showSubBalancers]);
+  }, [t, showSubBalancers]);
 
   const xrayChildren = useMemo<NonNullable<MenuProps['items']>>(
     () => [

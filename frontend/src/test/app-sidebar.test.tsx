@@ -1,17 +1,30 @@
 import { act, fireEvent, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router';
-import { afterEach, expect, test, vi } from 'vitest';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 
+import { useAllSettings } from '@/api/queries/useAllSettings';
 import AppSidebar from '@/layouts/AppSidebar';
 import { renderWithProviders } from './test-utils';
 
 vi.mock('@/api/queries/useAllSettings', () => ({
-  useAllSettings: () => ({ allSetting: {} }),
+  useAllSettings: vi.fn(() => ({ allSetting: {} })),
 }));
+
+const defaultSettings = () => ({ allSetting: {} }) as unknown as ReturnType<typeof useAllSettings>;
+
+beforeEach(() => {
+  vi.mocked(useAllSettings).mockReturnValue(defaultSettings());
+});
 
 afterEach(() => {
   localStorage.clear();
 });
+
+function topLevelLabels(view: { container: HTMLElement }) {
+  return Array.from(view.container.querySelectorAll('.sider-nav > li')).map(
+    (li) => li.textContent ?? '',
+  );
+}
 
 // rc-menu registers its items in a microtask after render; settle it inside act().
 async function renderSidebar() {
@@ -73,4 +86,29 @@ test('labels the palette shortcut with the modifier the platform actually uses',
   const view = await renderSidebar();
   const chip = view.container.querySelector('.sidebar-command-kbd');
   expect(chip?.textContent).toBe('CtrlK');
+});
+
+test('subscription settings is a top-level entry directly below rules', async () => {
+  const view = await renderSidebar();
+  const labels = topLevelLabels(view);
+  const rules = labels.findIndex((label) => label.includes('Rules'));
+
+  expect(rules).toBeGreaterThanOrEqual(0);
+  expect(labels[rules + 1]).toContain('Subscription');
+  expect(labels[rules + 2]).toContain('Panel Settings');
+});
+
+test('sub formats joins the top level below rules when a format is enabled', async () => {
+  vi.mocked(useAllSettings).mockReturnValue({
+    allSetting: { subJsonEnable: true },
+  } as unknown as ReturnType<typeof useAllSettings>);
+
+  const view = await renderSidebar();
+  const labels = topLevelLabels(view);
+  const rules = labels.findIndex((label) => label.includes('Rules'));
+
+  expect(rules).toBeGreaterThanOrEqual(0);
+  expect(labels[rules + 1]).toContain('Subscription');
+  expect(labels[rules + 2]).toContain('Sub Formats');
+  expect(labels[rules + 3]).toContain('Panel Settings');
 });
