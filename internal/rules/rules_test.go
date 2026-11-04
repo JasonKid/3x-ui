@@ -94,3 +94,48 @@ func TestRulesStoreAndTemplateRender(t *testing.T) {
 		t.Fatalf("shadowrocket config missing expected sections:\n%s", sr)
 	}
 }
+
+func TestRuleLinesNoResolve(t *testing.T) {
+	t.Run("ip rules gain no-resolve on output", func(t *testing.T) {
+		lines := RuleLines([]OutputRule{
+			{Type: "IP-CIDR", Value: "1.1.1.0/24", Policy: "DIRECT"},
+			{Type: "IP-CIDR6", Value: "2001:db8::/32", Policy: "DIRECT"},
+			{Type: "GEOIP", Value: "CN", Policy: "DIRECT"},
+			{Type: "DOMAIN-SUFFIX", Value: "example.com", Policy: "PROXY"},
+		})
+		want := []string{
+			"IP-CIDR,1.1.1.0/24,DIRECT,no-resolve",
+			"IP-CIDR6,2001:db8::/32,DIRECT,no-resolve",
+			"GEOIP,CN,DIRECT,no-resolve",
+			"DOMAIN-SUFFIX,example.com,PROXY",
+		}
+		if len(lines) != len(want) {
+			t.Fatalf("lines = %#v", lines)
+		}
+		for i := range want {
+			if lines[i] != want[i] {
+				t.Errorf("line[%d] = %q, want %q", i, lines[i], want[i])
+			}
+		}
+	})
+
+	t.Run("source no-resolve survives parsing without duplication", func(t *testing.T) {
+		res := ParseRuleSource("IP-CIDR,1.1.1.0/24,no-resolve\nIP-CIDR,2.2.2.0/24,DIRECT,no-resolve\n")
+		if len(res.Rules) != 2 {
+			t.Fatalf("rules = %#v", res.Rules)
+		}
+		lines := RuleLines(ApplyDefaultPolicy(res.Rules, PolicyProxy))
+		want := []string{
+			"IP-CIDR,1.1.1.0/24,PROXY,no-resolve",
+			"IP-CIDR,2.2.2.0/24,DIRECT,no-resolve",
+		}
+		if len(lines) != len(want) {
+			t.Fatalf("lines = %#v", lines)
+		}
+		for i := range want {
+			if lines[i] != want[i] {
+				t.Errorf("line[%d] = %q, want %q", i, lines[i], want[i])
+			}
+		}
+	})
+}

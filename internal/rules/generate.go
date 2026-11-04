@@ -9,22 +9,36 @@ import (
 // DefaultClashTemplate is the built-in Clash/Mihomo subscription template.
 const DefaultClashTemplate = `dns:
   enable: true
-  listen: 0.0.0.0:53
+  listen: 0.0.0.0:1053
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  direct-nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   fake-ip-filter:
     - "*.lan"
     - "*.local"
     - "*.arpa"
     - localhost.ptlogin2.qq.com
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "+.stun.*.*"
+    - time.*.com
+    - time.*.apple.com
+    - "+.ntp.org.cn"
+    - "+.market.xiaomi.com"
   nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   fallback:
-    - tls://8.8.8.8
-    - tls://1.1.1.1
     - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -39,10 +53,10 @@ rules:
 // DefaultShadowrocketTemplate is the built-in Shadowrocket subscription template.
 const DefaultShadowrocketTemplate = `[General]
 bypass-system = true
-skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.lan,*.local,*.arpa
+skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,localhost,*.lan,*.local,*.arpa,captive.apple.com
 bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,224.0.0/4,255.255.255.255/32
-dns-server = 223.5.5.5,119.29.29.29,https://dns.alidns.com/dns-query
-fallback-dns-server = tls://8.8.8.8,tls://1.1.1.1,https://dns.cloudflare.com/dns-query
+dns-server = https://doh.pub/dns-query,https://dns.alidns.com/dns-query
+fallback-dns-server = https://dns.cloudflare.com/dns-query,https://dns.google/dns-query
 ipv6 = false
 prefer-ipv6 = false
 private-ip-answer = true
@@ -52,7 +66,14 @@ private-ip-answer = true
 func RuleLines(list []OutputRule) []string {
 	out := make([]string, 0, len(list))
 	for _, rule := range list {
-		out = append(out, NormalizeRuleType(rule.Type)+","+rule.Value+","+rule.Policy)
+		ruleType := NormalizeRuleType(rule.Type)
+		line := ruleType + "," + rule.Value + "," + rule.Policy
+		switch ruleType {
+		case "IP-CIDR", "IP-CIDR6", "GEOIP":
+			// Resolving before an IP rule match yields a fake-ip address and breaks the match.
+			line += ",no-resolve"
+		}
+		out = append(out, line)
 	}
 	return out
 }
