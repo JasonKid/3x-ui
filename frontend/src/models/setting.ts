@@ -79,6 +79,7 @@ export class AllSetting {
   subClashTemplate = '';
   defaultSubClashTemplate = '';
   subShadowrocketTemplate = '';
+  defaultSubShadowrocketTemplate = '';
   subJsonMux = '';
   subJsonRules = '';
   subJsonRoutingRules = '';

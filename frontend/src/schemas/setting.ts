@@ -89,6 +89,7 @@ export const AllSettingSchema = z
     subClashTemplate: z.string().optional(),
     defaultSubClashTemplate: z.string().optional(),
     subShadowrocketTemplate: z.string().optional(),
+    defaultSubShadowrocketTemplate: z.string().optional(),
     subJsonMux: z.string().optional(),
     subJsonRules: z.string().optional(),
     subJsonRoutingRules: z.string().optional(),

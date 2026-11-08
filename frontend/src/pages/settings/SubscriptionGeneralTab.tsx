@@ -490,13 +490,15 @@ export default function SubscriptionGeneralTab({
               description={t('pages.settings.subShadowrocketTemplateDesc')}
             >
               <Input.TextArea
-                value={allSetting.subShadowrocketTemplate}
+                value={allSetting.subShadowrocketTemplate || allSetting.defaultSubShadowrocketTemplate}
                 rows={12}
-                placeholder={
-                  '[General]\nbypass-system = true\nskip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.lan,*.local,*.arpa\ndns-server = 223.5.5.5,119.29.29.29\nipv6 = false'
-                }
                 onChange={(e) => updateSetting({ subShadowrocketTemplate: e.target.value })}
               />
+              <div style={{ marginTop: 8, textAlign: 'right' }}>
+                <Button size="small" onClick={() => updateSetting({ subShadowrocketTemplate: '' })}>
+                  {t('reset')}
+                </Button>
+              </div>
             </SettingListItem>
           ),
         },

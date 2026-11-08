@@ -8,6 +8,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "defaultSubClashTemplate": {
         "type": "string"
       },
+      "defaultSubShadowrocketTemplate": {
+        "type": "string"
+      },
       "discordAdminIds": {
         "type": "string"
       },
@@ -595,6 +598,7 @@ export const SCHEMAS: Record<string, unknown> = {
     "required": [
       "datepicker",
       "defaultSubClashTemplate",
+      "defaultSubShadowrocketTemplate",
       "discordAdminIds",
       "discordBotBackup",
       "discordBotEnable",
@@ -785,6 +789,9 @@ export const SCHEMAS: Record<string, unknown> = {
         "type": "string"
       },
       "defaultSubClashTemplate": {
+        "type": "string"
+      },
+      "defaultSubShadowrocketTemplate": {
         "type": "string"
       },
       "discordAdminIds": {
@@ -1398,6 +1405,7 @@ export const SCHEMAS: Record<string, unknown> = {
     "required": [
       "datepicker",
       "defaultSubClashTemplate",
+      "defaultSubShadowrocketTemplate",
       "discordAdminIds",
       "discordBotBackup",
       "discordBotEnable",

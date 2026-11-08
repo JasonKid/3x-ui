@@ -30,6 +30,7 @@ export type transportBits = z.infer<typeof transportBitsSchema>;
 export const AllSettingSchema = z.object({
   datepicker: z.string(),
   defaultSubClashTemplate: z.string(),
+  defaultSubShadowrocketTemplate: z.string(),
   discordAdminIds: z.string(),
   discordBotBackup: z.boolean(),
   discordBotEnable: z.boolean(),
@@ -217,6 +218,7 @@ export type AllSetting = z.infer<typeof AllSettingSchema>;
 export const AllSettingViewSchema = z.object({
   datepicker: z.string(),
   defaultSubClashTemplate: z.string(),
+  defaultSubShadowrocketTemplate: z.string(),
   discordAdminIds: z.string(),
   discordBotBackup: z.boolean(),
   discordBotEnable: z.boolean(),

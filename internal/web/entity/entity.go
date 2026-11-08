@@ -87,55 +87,56 @@ type AllSetting struct {
 	TwoFactorEnable bool   `json:"twoFactorEnable" form:"twoFactorEnable"`
 	TwoFactorToken  string `json:"twoFactorToken" form:"twoFactorToken"`
 
-	HappLinkEnable              bool   `json:"happLinkEnable" form:"happLinkEnable"`
-	SubEnable                   bool   `json:"subEnable" form:"subEnable"`
-	SubJsonEnable               bool   `json:"subJsonEnable" form:"subJsonEnable"`
-	SubJsonAutoDetect           bool   `json:"subJsonAutoDetect" form:"subJsonAutoDetect"`
-	SubJsonAlwaysArray          bool   `json:"subJsonAlwaysArray" form:"subJsonAlwaysArray"`
-	SubJsonUserAgentRegex       string `json:"subJsonUserAgentRegex" form:"subJsonUserAgentRegex"`
-	SubClashAutoDetect          bool   `json:"subClashAutoDetect" form:"subClashAutoDetect"`
-	SubClashUserAgentRegex      string `json:"subClashUserAgentRegex" form:"subClashUserAgentRegex"`
-	SubTitle                    string `json:"subTitle" form:"subTitle"`
-	SubSupportUrl               string `json:"subSupportUrl" form:"subSupportUrl"`
-	SubProfileMode              string `json:"subProfileMode" form:"subProfileMode"`
-	SubProfileUrl               string `json:"subProfileUrl" form:"subProfileUrl"`
-	SubAnnounce                 string `json:"subAnnounce" form:"subAnnounce"`
-	SubEnableRouting            bool   `json:"subEnableRouting" form:"subEnableRouting"`
-	SubRoutingRules             string `json:"subRoutingRules" form:"subRoutingRules"`
-	SubIncyEnableRouting        bool   `json:"subIncyEnableRouting" form:"subIncyEnableRouting"`
-	SubIncyRoutingRules         string `json:"subIncyRoutingRules" form:"subIncyRoutingRules"`
-	SubListen                   string `json:"subListen" form:"subListen"`
-	SubPort                     int    `json:"subPort" form:"subPort" validate:"gte=1,lte=65535"`
-	SubPath                     string `json:"subPath" form:"subPath"`
-	SubDomain                   string `json:"subDomain" form:"subDomain"`
-	SubCertFile                 string `json:"subCertFile" form:"subCertFile"`
-	SubKeyFile                  string `json:"subKeyFile" form:"subKeyFile"`
-	ExternalSubUserAgent        string `json:"externalSubUserAgent" form:"externalSubUserAgent"`
-	SubUpdates                  int    `json:"subUpdates" form:"subUpdates" validate:"gte=0,lte=525600"`
-	ExternalTrafficInformEnable bool   `json:"externalTrafficInformEnable" form:"externalTrafficInformEnable"`
-	ExternalTrafficInformURI    string `json:"externalTrafficInformURI" form:"externalTrafficInformURI"`
-	RestartXrayOnClientDisable  bool   `json:"restartXrayOnClientDisable" form:"restartXrayOnClientDisable"`
-	SubEncrypt                  bool   `json:"subEncrypt" form:"subEncrypt"`
-	SubURI                      string `json:"subURI" form:"subURI"`
-	SubJsonPath                 string `json:"subJsonPath" form:"subJsonPath"`
-	SubJsonURI                  string `json:"subJsonURI" form:"subJsonURI"`
-	SubClashEnable              bool   `json:"subClashEnable" form:"subClashEnable"`
-	SubClashPath                string `json:"subClashPath" form:"subClashPath"`
-	SubClashURI                 string `json:"subClashURI" form:"subClashURI"`
-	SubClashEnableRouting       bool   `json:"subClashEnableRouting" form:"subClashEnableRouting"`
-	SubClashRules               string `json:"subClashRules" form:"subClashRules"`
-	SubClashRemoteDNS           bool   `json:"subClashRemoteDNS" form:"subClashRemoteDNS"`
-	SubClashTemplate            string `json:"subClashTemplate" form:"subClashTemplate"`
-	DefaultSubClashTemplate     string `json:"defaultSubClashTemplate" form:"-" readOnly:"true"`
-	SubShadowrocketTemplate     string `json:"subShadowrocketTemplate" form:"subShadowrocketTemplate"`
-	SubJsonMux                  string `json:"subJsonMux" form:"subJsonMux"`
-	SubJsonRules                string `json:"subJsonRules" form:"subJsonRules"`
-	SubJsonRoutingRules         string `json:"subJsonRoutingRules" form:"subJsonRoutingRules"`
-	SubJsonDns                  string `json:"subJsonDns" form:"subJsonDns"`
-	SubJsonFinalMask            string `json:"subJsonFinalMask" form:"subJsonFinalMask"`
-	SubJsonObservatory          string `json:"subJsonObservatory" form:"subJsonObservatory"`
-	SubThemeDir                 string `json:"subThemeDir" form:"subThemeDir"`
-	SubHideSettings             bool   `json:"subHideSettings" form:"subHideSettings"`
+	HappLinkEnable                 bool   `json:"happLinkEnable" form:"happLinkEnable"`
+	SubEnable                      bool   `json:"subEnable" form:"subEnable"`
+	SubJsonEnable                  bool   `json:"subJsonEnable" form:"subJsonEnable"`
+	SubJsonAutoDetect              bool   `json:"subJsonAutoDetect" form:"subJsonAutoDetect"`
+	SubJsonAlwaysArray             bool   `json:"subJsonAlwaysArray" form:"subJsonAlwaysArray"`
+	SubJsonUserAgentRegex          string `json:"subJsonUserAgentRegex" form:"subJsonUserAgentRegex"`
+	SubClashAutoDetect             bool   `json:"subClashAutoDetect" form:"subClashAutoDetect"`
+	SubClashUserAgentRegex         string `json:"subClashUserAgentRegex" form:"subClashUserAgentRegex"`
+	SubTitle                       string `json:"subTitle" form:"subTitle"`
+	SubSupportUrl                  string `json:"subSupportUrl" form:"subSupportUrl"`
+	SubProfileMode                 string `json:"subProfileMode" form:"subProfileMode"`
+	SubProfileUrl                  string `json:"subProfileUrl" form:"subProfileUrl"`
+	SubAnnounce                    string `json:"subAnnounce" form:"subAnnounce"`
+	SubEnableRouting               bool   `json:"subEnableRouting" form:"subEnableRouting"`
+	SubRoutingRules                string `json:"subRoutingRules" form:"subRoutingRules"`
+	SubIncyEnableRouting           bool   `json:"subIncyEnableRouting" form:"subIncyEnableRouting"`
+	SubIncyRoutingRules            string `json:"subIncyRoutingRules" form:"subIncyRoutingRules"`
+	SubListen                      string `json:"subListen" form:"subListen"`
+	SubPort                        int    `json:"subPort" form:"subPort" validate:"gte=1,lte=65535"`
+	SubPath                        string `json:"subPath" form:"subPath"`
+	SubDomain                      string `json:"subDomain" form:"subDomain"`
+	SubCertFile                    string `json:"subCertFile" form:"subCertFile"`
+	SubKeyFile                     string `json:"subKeyFile" form:"subKeyFile"`
+	ExternalSubUserAgent           string `json:"externalSubUserAgent" form:"externalSubUserAgent"`
+	SubUpdates                     int    `json:"subUpdates" form:"subUpdates" validate:"gte=0,lte=525600"`
+	ExternalTrafficInformEnable    bool   `json:"externalTrafficInformEnable" form:"externalTrafficInformEnable"`
+	ExternalTrafficInformURI       string `json:"externalTrafficInformURI" form:"externalTrafficInformURI"`
+	RestartXrayOnClientDisable     bool   `json:"restartXrayOnClientDisable" form:"restartXrayOnClientDisable"`
+	SubEncrypt                     bool   `json:"subEncrypt" form:"subEncrypt"`
+	SubURI                         string `json:"subURI" form:"subURI"`
+	SubJsonPath                    string `json:"subJsonPath" form:"subJsonPath"`
+	SubJsonURI                     string `json:"subJsonURI" form:"subJsonURI"`
+	SubClashEnable                 bool   `json:"subClashEnable" form:"subClashEnable"`
+	SubClashPath                   string `json:"subClashPath" form:"subClashPath"`
+	SubClashURI                    string `json:"subClashURI" form:"subClashURI"`
+	SubClashEnableRouting          bool   `json:"subClashEnableRouting" form:"subClashEnableRouting"`
+	SubClashRules                  string `json:"subClashRules" form:"subClashRules"`
+	SubClashRemoteDNS              bool   `json:"subClashRemoteDNS" form:"subClashRemoteDNS"`
+	SubClashTemplate               string `json:"subClashTemplate" form:"subClashTemplate"`
+	DefaultSubClashTemplate        string `json:"defaultSubClashTemplate" form:"-" readOnly:"true"`
+	SubShadowrocketTemplate        string `json:"subShadowrocketTemplate" form:"subShadowrocketTemplate"`
+	DefaultSubShadowrocketTemplate string `json:"defaultSubShadowrocketTemplate" form:"-" readOnly:"true"`
+	SubJsonMux                     string `json:"subJsonMux" form:"subJsonMux"`
+	SubJsonRules                   string `json:"subJsonRules" form:"subJsonRules"`
+	SubJsonRoutingRules            string `json:"subJsonRoutingRules" form:"subJsonRoutingRules"`
+	SubJsonDns                     string `json:"subJsonDns" form:"subJsonDns"`
+	SubJsonFinalMask               string `json:"subJsonFinalMask" form:"subJsonFinalMask"`
+	SubJsonObservatory             string `json:"subJsonObservatory" form:"subJsonObservatory"`
+	SubThemeDir                    string `json:"subThemeDir" form:"subThemeDir"`
+	SubHideSettings                bool   `json:"subHideSettings" form:"subHideSettings"`
 
 	// Happ client customization settings (app-management / routing / UX).
 	SubHappAutoDetect          bool   `json:"subHappAutoDetect" form:"subHappAutoDetect"`

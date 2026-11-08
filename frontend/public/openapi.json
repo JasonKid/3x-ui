@@ -34,6 +34,9 @@
           "defaultSubClashTemplate": {
             "type": "string"
           },
+          "defaultSubShadowrocketTemplate": {
+            "type": "string"
+          },
           "discordAdminIds": {
             "type": "string"
           },
@@ -621,6 +624,7 @@
         "required": [
           "datepicker",
           "defaultSubClashTemplate",
+          "defaultSubShadowrocketTemplate",
           "discordAdminIds",
           "discordBotBackup",
           "discordBotEnable",
@@ -811,6 +815,9 @@
             "type": "string"
           },
           "defaultSubClashTemplate": {
+            "type": "string"
+          },
+          "defaultSubShadowrocketTemplate": {
             "type": "string"
           },
           "discordAdminIds": {
@@ -1424,6 +1431,7 @@
         "required": [
           "datepicker",
           "defaultSubClashTemplate",
+          "defaultSubShadowrocketTemplate",
           "discordAdminIds",
           "discordBotBackup",
           "discordBotEnable",

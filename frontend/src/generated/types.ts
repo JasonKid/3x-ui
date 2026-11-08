@@ -12,6 +12,7 @@ export type transportBits = number;
 export interface AllSetting {
   datepicker: string;
   defaultSubClashTemplate: string;
+  defaultSubShadowrocketTemplate: string;
   discordAdminIds: string;
   discordBotBackup: boolean;
   discordBotEnable: boolean;
@@ -198,6 +199,7 @@ export interface AllSetting {
 export interface AllSettingView {
   datepicker: string;
   defaultSubClashTemplate: string;
+  defaultSubShadowrocketTemplate: string;
   discordAdminIds: string;
   discordBotBackup: boolean;
   discordBotEnable: boolean;

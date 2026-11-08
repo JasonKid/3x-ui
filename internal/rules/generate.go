@@ -34,6 +34,8 @@ const DefaultClashTemplate = `dns:
     - "+.ntp.org.cn"
     - "+.market.xiaomi.com"
   nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   fallback:
@@ -55,7 +57,7 @@ const DefaultShadowrocketTemplate = `[General]
 bypass-system = true
 skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,localhost,*.lan,*.local,*.arpa,captive.apple.com
 bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.18.0.0/15,198.51.100.0/24,203.0.113.0/24,224.0.0/4,255.255.255.255/32
-dns-server = 8.8.8.8,https://doh.pub/dns-query,https://dns.alidns.com/dns-query
+dns-server = 1.1.1.1,8.8.8.8,https://doh.pub/dns-query,https://dns.alidns.com/dns-query
 fallback-dns-server = https://dns.cloudflare.com/dns-query,https://dns.google/dns-query
 ipv6 = false
 prefer-ipv6 = false

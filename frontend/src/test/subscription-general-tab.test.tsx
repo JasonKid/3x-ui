@@ -273,4 +273,24 @@ describe('SubscriptionGeneralTab', () => {
     expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe(custom);
     expect(screen.queryByDisplayValue('default-must-not-show')).toBeNull();
   });
+
+  it('shows the effective default Shadowrocket template and resets the custom one', () => {
+    const updateSetting = vi.fn();
+    const defaultTemplate = '[General]\ndns-server = 1.1.1.1,8.8.8.8\n';
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/settings#subscription']}>
+        <SubscriptionGeneralTab
+          allSetting={new AllSetting({ defaultSubShadowrocketTemplate: defaultTemplate })}
+          updateSetting={updateSetting}
+        />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByRole('tab', { name: /Shadowrocket/ }));
+    expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe(defaultTemplate);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(updateSetting).toHaveBeenCalledWith({ subShadowrocketTemplate: '' });
+  });
 });

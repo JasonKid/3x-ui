@@ -351,6 +351,7 @@ func (s *SettingService) GetAllSetting() (*entity.AllSetting, error) {
 	}
 	allSetting.SubProfileMode = effectiveSubProfileMode(allSetting.SubProfileMode, allSetting.SubProfileUrl)
 	allSetting.DefaultSubClashTemplate = rules.DefaultClashTemplate
+	allSetting.DefaultSubShadowrocketTemplate = rules.DefaultShadowrocketTemplate
 	return allSetting, nil
 }
 
