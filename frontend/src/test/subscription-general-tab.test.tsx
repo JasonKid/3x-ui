@@ -231,4 +231,46 @@ describe('SubscriptionGeneralTab', () => {
     ).toBe('false');
     expect(updateSetting).not.toHaveBeenCalled();
   });
+
+  it('shows the effective default Clash template and resets the custom one', () => {
+    const updateSetting = vi.fn();
+    const defaultTemplate = 'dns:\n  enable: true\n  direct-nameserver:\n    - https://doh.pub/dns-query\n';
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/settings#subscription']}>
+        <SubscriptionGeneralTab
+          allSetting={new AllSetting({ defaultSubClashTemplate: defaultTemplate })}
+          updateSetting={updateSetting}
+        />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByRole('tab', { name: /Clash/ }));
+    expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe(defaultTemplate);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(updateSetting).toHaveBeenCalledWith({ subClashTemplate: '' });
+  });
+
+  it('shows the saved custom Clash template instead of the built-in default', () => {
+    const custom = 'dns:\n  enable: false\n';
+
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/settings#subscription']}>
+        <SubscriptionGeneralTab
+          allSetting={
+            new AllSetting({
+              subClashTemplate: custom,
+              defaultSubClashTemplate: 'default-must-not-show',
+            })
+          }
+          updateSetting={vi.fn()}
+        />
+      </MemoryRouter>,
+    );
+
+    fireEvent.click(screen.getByRole('tab', { name: /Clash/ }));
+    expect((screen.getByRole('textbox') as HTMLTextAreaElement).value).toBe(custom);
+    expect(screen.queryByDisplayValue('default-must-not-show')).toBeNull();
+  });
 });

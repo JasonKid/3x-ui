@@ -350,6 +350,7 @@ func (s *SettingService) GetAllSetting() (*entity.AllSetting, error) {
 		allSetting.SubProfileMode = ""
 	}
 	allSetting.SubProfileMode = effectiveSubProfileMode(allSetting.SubProfileMode, allSetting.SubProfileUrl)
+	allSetting.DefaultSubClashTemplate = rules.DefaultClashTemplate
 	return allSetting, nil
 }
 
@@ -1733,6 +1734,9 @@ func (s *SettingService) UpdateAllSetting(allSetting *entity.AllSetting, clears 
 		}
 		for _, field := range fields {
 			key := field.Tag.Get("json")
+			if field.Tag.Get("readOnly") == "true" {
+				continue
+			}
 			fieldV := v.FieldByName(field.Name)
 			value := fmt.Sprint(fieldV.Interface())
 			if st, ok := byKey[key]; ok {

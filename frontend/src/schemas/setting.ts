@@ -87,6 +87,7 @@ export const AllSettingSchema = z
     subClashRules: z.string().optional(),
     subClashRemoteDNS: z.boolean().optional(),
     subClashTemplate: z.string().optional(),
+    defaultSubClashTemplate: z.string().optional(),
     subShadowrocketTemplate: z.string().optional(),
     subJsonMux: z.string().optional(),
     subJsonRules: z.string().optional(),

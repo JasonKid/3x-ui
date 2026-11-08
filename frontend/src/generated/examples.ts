@@ -2,6 +2,7 @@
 export const EXAMPLES: Record<string, unknown> = {
   "AllSetting": {
     "datepicker": "",
+    "defaultSubClashTemplate": "",
     "discordAdminIds": "",
     "discordBotBackup": false,
     "discordBotEnable": false,
@@ -186,6 +187,7 @@ export const EXAMPLES: Record<string, unknown> = {
   },
   "AllSettingView": {
     "datepicker": "",
+    "defaultSubClashTemplate": "",
     "discordAdminIds": "",
     "discordBotBackup": false,
     "discordBotEnable": false,

@@ -457,13 +457,15 @@ export default function SubscriptionGeneralTab({
                 description={t('pages.settings.subClashTemplateDesc')}
               >
                 <Input.TextArea
-                  value={allSetting.subClashTemplate}
+                  value={allSetting.subClashTemplate || allSetting.defaultSubClashTemplate}
                   rows={12}
-                  placeholder={
-                    'dns:\n  enable: true\n  enhanced-mode: fake-ip\n  nameserver:\n    - 223.5.5.5\n    - 119.29.29.29\nrules:\n  - MATCH,DIRECT'
-                  }
                   onChange={(e) => updateSetting({ subClashTemplate: e.target.value })}
                 />
+                <div style={{ marginTop: 8, textAlign: 'right' }}>
+                  <Button size="small" onClick={() => updateSetting({ subClashTemplate: '' })}>
+                    {t('reset')}
+                  </Button>
+                </div>
               </SettingListItem>
               <SettingListItem
                 paddings="small"

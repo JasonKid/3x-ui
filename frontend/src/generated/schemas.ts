@@ -5,6 +5,9 @@ export const SCHEMAS: Record<string, unknown> = {
       "datepicker": {
         "type": "string"
       },
+      "defaultSubClashTemplate": {
+        "type": "string"
+      },
       "discordAdminIds": {
         "type": "string"
       },
@@ -591,6 +594,7 @@ export const SCHEMAS: Record<string, unknown> = {
     },
     "required": [
       "datepicker",
+      "defaultSubClashTemplate",
       "discordAdminIds",
       "discordBotBackup",
       "discordBotEnable",
@@ -778,6 +782,9 @@ export const SCHEMAS: Record<string, unknown> = {
   "AllSettingView": {
     "properties": {
       "datepicker": {
+        "type": "string"
+      },
+      "defaultSubClashTemplate": {
         "type": "string"
       },
       "discordAdminIds": {
@@ -1390,6 +1397,7 @@ export const SCHEMAS: Record<string, unknown> = {
     },
     "required": [
       "datepicker",
+      "defaultSubClashTemplate",
       "discordAdminIds",
       "discordBotBackup",
       "discordBotEnable",

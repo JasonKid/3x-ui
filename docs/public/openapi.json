@@ -31,6 +31,9 @@
           "datepicker": {
             "type": "string"
           },
+          "defaultSubClashTemplate": {
+            "type": "string"
+          },
           "discordAdminIds": {
             "type": "string"
           },
@@ -617,6 +620,7 @@
         },
         "required": [
           "datepicker",
+          "defaultSubClashTemplate",
           "discordAdminIds",
           "discordBotBackup",
           "discordBotEnable",
@@ -804,6 +808,9 @@
       "AllSettingView": {
         "properties": {
           "datepicker": {
+            "type": "string"
+          },
+          "defaultSubClashTemplate": {
             "type": "string"
           },
           "discordAdminIds": {
@@ -1416,6 +1423,7 @@
         },
         "required": [
           "datepicker",
+          "defaultSubClashTemplate",
           "discordAdminIds",
           "discordBotBackup",
           "discordBotEnable",

@@ -126,6 +126,7 @@ type AllSetting struct {
 	SubClashRules               string `json:"subClashRules" form:"subClashRules"`
 	SubClashRemoteDNS           bool   `json:"subClashRemoteDNS" form:"subClashRemoteDNS"`
 	SubClashTemplate            string `json:"subClashTemplate" form:"subClashTemplate"`
+	DefaultSubClashTemplate     string `json:"defaultSubClashTemplate" form:"-" readOnly:"true"`
 	SubShadowrocketTemplate     string `json:"subShadowrocketTemplate" form:"subShadowrocketTemplate"`
 	SubJsonMux                  string `json:"subJsonMux" form:"subJsonMux"`
 	SubJsonRules                string `json:"subJsonRules" form:"subJsonRules"`
